@@ -1,0 +1,23 @@
+{
+    "logo_text": "Food System",
+    "login_text": "Login",
+    "email_text":"Email",
+    "password_text": "Password",
+    "password_new_text": "Password New",
+    "password_confirm": "Password Confirm",
+    "password_confirmed": "Confirmed",
+    "signup_text": "Register",
+    "fill_information": "Fill Information",
+    "verified_text": "Verified",
+    "back_text": "Back",
+    "verified_email_text": "Verified Email",
+    "forgot_password_text": "Forgot Password?",
+    "send_email_error": "Send Email Error",
+    "notification": "Notification",
+    "notification_email_empty" : "Please fill Email",
+    "notification_password_empty": "Please fill Password",
+    "notification_otp_empty": "Please fill Otp",
+    "notification_otp_success": "Verified success!",
+    "notification_login_success": "Login success!",
+    "notification_login_fail": "Login fail!"
+}

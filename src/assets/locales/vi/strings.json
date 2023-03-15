@@ -1,0 +1,23 @@
+{
+    "logo_text": "Food System",
+    "login_text": "Đăng nhập",
+    "email_text":"Email",
+    "password_text": "Mật khẩu",
+    "password_new_text": "Mật khẩu mới",
+    "password_confirm": "Nhập lại mật khẩu",
+    "password_confirmed": "Xác nhận",
+    "signup_text": "Đăng ký",
+    "verified_text": "Xác thực",
+    "fill_information": "Điền thông tin",
+    "back_text": "Trở về",
+    "verified_email_text": "Xác thực email",
+    "forgot_password_text": "Quên mật khẩu?",
+    "send_email_error": "Có lỗi khi gởi email!",
+    "notification": "Thông báo",
+    "notification_email_empty" : "Vui lòng điền email",
+    "notification_password_empty": "Vui lòng điền password",
+    "notification_otp_empty": "Vui lòng điền mã xác thực",
+    "notification_otp_success": "Xác thực thành công!",
+    "notification_login_success": "Đăng nhập thành công!",
+    "notification_login_fail": "Đăng nhập thất bại!"
+}
