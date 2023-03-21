@@ -5,6 +5,9 @@
   "scripts": {
     "bundle": "yarn react-native bundle --dev false --entry-file index.js --bundle-output ios/main.jsbundle --platform ios",
     "android": "react-native run-android",
+    "ios-12": "react-native run-ios --simulator='iPhone 12'",
+    "ios-13": "react-native run-ios --simulator='iPhone 13'",
+    "ios-14": "react-native run-ios --simulator='iPhone 14'",
     "ios": "react-native run-ios",
     "start": "react-native start",
     "test": "jest",
