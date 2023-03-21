@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -8,35 +8,35 @@ import {
   ScrollView,
   View,
   Alert,
-} from 'react-native';
+} from "react-native";
 
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import i18n from '../../assets/utils/i18n';
-import Spinner from '../../components/Spinner';
-import themes from '../../themes';
-import StatusBarCustom from '../../components/StatusBarCustom';
-import LogoApp from '../../components/LogoApp';
-import ButtonPrimary from '../../components/ButtonPrimary';
-import * as actions from '../../redux/actions';
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import i18n from "../../assets/utils/i18n";
+import Spinner from "../../components/Spinner";
+import themes from "../../themes";
+import StatusBarCustom from "../../components/StatusBarCustom";
+import LogoApp from "../../components/LogoApp";
+import ButtonPrimary from "../../components/ButtonPrimary";
+import * as actions from "../../redux/actions";
 
-import {connect} from 'react-redux';
-import {signInApi} from '../../api/authenticationApi';
-import {getStatusTableByOrder} from '../../api/orderApi';
+import { connect } from "react-redux";
+import { signInApi } from "../../api/authenticationApi";
+import { getStatusTableByOrder } from "../../api/orderApi";
 
 const SignInScreen = (props) => {
-  const [userEmail, setUserEmail] = useState('nhanvienbep@gmail.com');
-  const [userPassword, setUserPassword] = useState('12345678');
+  const [userEmail, setUserEmail] = useState("phucvuban@gmail.com");
+  const [userPassword, setUserPassword] = useState("123456");
   const [loading, setLoading] = useState(false);
 
   const checkRole = (role) => {
-    if (role === 'KITCHEN_STAFF') {
-      props.navigation.navigate('mainKitChenStaff');
-    } else if (role === 'DESK_STAFF') {
-      props.navigation.navigate('mainDeskStaff');
-    } else if (role === 'CASHIER_STAFF') {
-      props.navigation.navigate('mainCashierStaff');
-    } else if (role === 'MANAGER') {
-      props.navigation.navigate('managementStaff');
+    if (role === "KITCHEN_STAFF") {
+      props.navigation.navigate("mainKitChenStaff");
+    } else if (role === "DESK_STAFF") {
+      props.navigation.navigate("mainDeskStaff");
+    } else if (role === "CASHIER_STAFF") {
+      props.navigation.navigate("mainCashierStaff");
+    } else if (role === "MANAGER") {
+      props.navigation.navigate("managementStaff");
     }
   };
 
@@ -52,13 +52,13 @@ const SignInScreen = (props) => {
 
   const handleSubmitPress = async () => {
     if (!userEmail) {
-      Alert.alert(i18n.t('notification'), i18n.t('notification_email_empty'));
+      Alert.alert(i18n.t("notification"), i18n.t("notification_email_empty"));
       return;
     }
     if (!userPassword) {
       Alert.alert(
-        i18n.t('notification'),
-        i18n.t('notification_password_empty'),
+        i18n.t("notification"),
+        i18n.t("notification_password_empty")
       );
       return;
     }
@@ -79,7 +79,7 @@ const SignInScreen = (props) => {
           gender: response.data.gender,
           birthDay: response.data.birthDay,
         };
-        await AsyncStorage.setItem('@AccessToken', response.data.accessToken);
+        await AsyncStorage.setItem("@AccessToken", response.data.accessToken);
         props.loadDataUser(user);
         await loadData();
         checkRole(response.data.role);
@@ -87,7 +87,7 @@ const SignInScreen = (props) => {
       })
       .catch((error) => {
         setLoading(false);
-        Alert.alert('Thông báo', 'Vui lòng kiểm tra Email/ Mật khẩu !');
+        Alert.alert("Thông báo", "Vui lòng kiểm tra Email/ Mật khẩu !");
         console.log(error);
       });
   };
@@ -95,9 +95,10 @@ const SignInScreen = (props) => {
     <SafeAreaView style={styles.container}>
       <StatusBarCustom />
       <ScrollView>
-        <View style={{alignItems: 'center'}}>
+        <View style={{ alignItems: "center" }}>
           <LogoApp />
           <TextInput
+            autoCapitalize="none"
             value={userEmail}
             style={styles.inputText}
             placeholder="Email..."
@@ -108,19 +109,20 @@ const SignInScreen = (props) => {
             value={userPassword}
             secureTextEntry
             style={styles.inputText}
-            placeholder={i18n.t('password_text')}
+            placeholder={i18n.t("password_text")}
             placeholderTextColor={themes.Colors.black}
             onChangeText={(userPassword) => setUserPassword(userPassword)}
           />
           <TouchableOpacity
             style={styles.forgotStyle}
-            onPress={() => props.navigation.navigate('forgotPassword')}>
+            onPress={() => props.navigation.navigate("forgotPassword")}
+          >
             <Text style={styles.forgotText}>
-              {i18n.t('forgot_password_text')}
+              {i18n.t("forgot_password_text")}
             </Text>
           </TouchableOpacity>
           <ButtonPrimary
-            name={i18n.t('login_text')}
+            name={i18n.t("login_text")}
             eventButton={() => handleSubmitPress()}
           />
           <Spinner isVisible={loading} />
@@ -141,28 +143,28 @@ const styles = StyleSheet.create({
     marginVertical: themes.Spacing.extra_large,
   },
   inputText: {
-    width: '80%',
+    width: "80%",
     backgroundColor: themes.Colors.light,
     borderRadius: 10,
     marginBottom: themes.Spacing.medium,
-    justifyContent: 'center',
+    justifyContent: "center",
     padding: 15,
   },
   forgotStyle: {
-    width: '80%',
+    width: "80%",
   },
   forgotText: {
     color: themes.Colors.black,
     fontSize: 14,
-    textDecorationLine: 'underline',
+    textDecorationLine: "underline",
   },
   loginBtn: {
-    width: '80%',
+    width: "80%",
     backgroundColor: themes.Colors.primary,
     borderRadius: 25,
     height: 50,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     marginTop: 40,
     padding: themes.Spacing.extra_large,
   },
