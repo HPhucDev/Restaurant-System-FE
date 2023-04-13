@@ -1,7 +1,7 @@
 // const BASE_URL = 'http://13.58.43.33:8080/web-0.0.1-SNAPSHOT/';
 // const BASE_URL = 'http://103.125.170.21:10007/web-0.0.1-SNAPSHOT/';
 
-const BASE_URL = "http://192.168.100.36:8080/";
+const BASE_URL = "http://192.168.4.28:8080/";
 
 const SIGN_IN = BASE_URL + "signin";
 const REFRESH_TOKEN = BASE_URL + "refreshtoken";

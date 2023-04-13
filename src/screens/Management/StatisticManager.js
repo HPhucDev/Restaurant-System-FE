@@ -1,35 +1,36 @@
-import React from 'react';
+import React from "react";
 import {
+  Platform,
   SafeAreaView,
   ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
-} from 'react-native';
-import {TitleBar} from '../../components/TitleBar';
-import themes from '../../themes';
-import {LineChart} from 'react-native-chart-kit';
-import {Dimensions} from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
-import {useState} from 'react';
-import ModalSelectReport from '../../components/ModalSelectReport';
-import MonthPicker from 'react-native-month-year-picker';
-import DateTimePicker from '@react-native-community/datetimepicker';
-import {useCallback} from 'react';
+} from "react-native";
+import { TitleBar } from "../../components/TitleBar";
+import themes from "../../themes";
+import { LineChart } from "react-native-chart-kit";
+import { Dimensions } from "react-native";
+import Icon from "react-native-vector-icons/FontAwesome";
+import { useState } from "react";
+import ModalSelectReport from "../../components/ModalSelectReport";
+import MonthPicker from "react-native-month-year-picker";
+import DateTimePicker from "@react-native-community/datetimepicker";
+import { useCallback } from "react";
 import {
   reportDay,
   reportMonth,
   reportQuarter,
   reportYear,
-} from '../../api/reportApi';
-import formatCash from '../../utils/formatCash';
-import {useEffect} from 'react';
-import {getFormattedDate} from '../../utils/dateTime';
-import SpinnerCustom from '../../components/Spinner';
+} from "../../api/reportApi";
+import formatCash from "../../utils/formatCash";
+import { useEffect } from "react";
+import { getFormattedDate } from "../../utils/dateTime";
+import SpinnerCustom from "../../components/Spinner";
 
 const data = {
-  labels: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6'],
+  labels: ["Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "Tháng 6"],
   datasets: [
     {
       data: [600, 500, 120, 140, 1000, 5],
@@ -38,7 +39,7 @@ const data = {
       strokeWidth: 2, // optional
     },
   ],
-  legend: ['Tổng hóa đơn'], // optional
+  legend: ["Tổng hóa đơn"], // optional
 };
 
 const StatisticManager = (props) => {
@@ -72,7 +73,7 @@ const StatisticManager = (props) => {
         quarter: false,
       });
     },
-    [dateCalender, showPicker],
+    [dateCalender, showPicker]
   );
 
   const onChangeCalendar = (event, selectedDate) => {
@@ -210,9 +211,9 @@ const StatisticManager = (props) => {
           mode="date"
           is24Hour={true}
           display={
-            Platform.OS === 'ios' && Platform.Version >= 14.4
-              ? 'inline'
-              : 'default'
+            Platform.OS === "ios" && Platform.Version >= 14.4
+              ? "inline"
+              : "default"
           }
           onChange={onChangeCalendar}
           dateFormat="day month year"
@@ -238,19 +239,21 @@ const StatisticManager = (props) => {
       />
       <ScrollView
         style={styles.contentView}
-        showsVerticalScrollIndicator={false}>
-        <View style={{paddingBottom: '10%'}}>
+        showsVerticalScrollIndicator={false}
+      >
+        <View style={{ paddingBottom: "10%" }}>
           <TouchableOpacity
             style={styles.buttonView}
-            onPress={() => setViSibleModal(true)}>
+            onPress={() => setViSibleModal(true)}
+          >
             <View style={styles.titleButton}>
-              <Text style={{fontSize: themes.Text.titleText}}>
+              <Text style={{ fontSize: themes.Text.titleText }}>
                 Chọn lọc doanh thu theo
               </Text>
-              <Icon name={'chevron-down'} size={15} />
+              <Icon name={"chevron-down"} size={15} />
             </View>
           </TouchableOpacity>
-          <Text style={{fontSize: themes.Text.titleText}}>
+          <Text style={{ fontSize: themes.Text.titleText }}>
             Báo cáo ngày: {getFormattedDate(dateCalender)}
           </Text>
           <View>
@@ -263,7 +266,7 @@ const StatisticManager = (props) => {
             <View style={styles.titleView}>
               <Text style={styles.titleText}>● Tổng tiền:</Text>
               <Text style={styles.detailText}>
-                {formatCash(valueReport.totalMoney + '')} VNĐ
+                {formatCash(valueReport.totalMoney + "")} VNĐ
               </Text>
             </View>
           </View>
@@ -271,27 +274,29 @@ const StatisticManager = (props) => {
             <TouchableOpacity
               style={[
                 styles.titleView,
-                {marginTop: themes.Spacing.large, alignItems: 'center'},
+                { marginTop: themes.Spacing.large, alignItems: "center" },
               ]}
-              onPress={()=>  props.navigation.navigate('listOrder', {orders: order})}
-              >
+              onPress={() =>
+                props.navigation.navigate("listOrder", { orders: order })
+              }
+            >
               <Text style={styles.titleText}>Xem danh sách hóa đơn</Text>
-              <Icon name={'chevron-right'} size={15} />
+              <Icon name={"chevron-right"} size={15} />
             </TouchableOpacity>
           </View>
         </View>
 
         <LineChart
-          style={{borderRadius: 10, marginVertical: themes.Spacing.medium}}
+          style={{ borderRadius: 10, marginVertical: themes.Spacing.medium }}
           data={data}
           yAxisSuffix=" HĐ"
-          width={Dimensions.get('window').width - themes.Spacing.extra_large}
+          width={Dimensions.get("window").width - themes.Spacing.extra_large}
           height={220}
           bezier
           chartConfig={{
             backgroundColor: themes.Colors.white,
-            backgroundGradientFrom: '#E4E4E4',
-            backgroundGradientTo: '#E4E4E4',
+            backgroundGradientFrom: "#E4E4E4",
+            backgroundGradientTo: "#E4E4E4",
             decimalPlaces: 0, // optional, defaults to 2dp
             color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
             labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
@@ -299,9 +304,9 @@ const StatisticManager = (props) => {
               borderRadius: 16,
             },
             propsForDots: {
-              r: '6',
-              strokeWidth: '2',
-              stroke: '#ffa726',
+              r: "6",
+              strokeWidth: "2",
+              stroke: "#ffa726",
             },
           }}
         />
@@ -319,26 +324,26 @@ const styles = StyleSheet.create({
   },
   buttonView: {
     marginVertical: themes.Spacing.medium,
-    backgroundColor: '#f2f2f2',
+    backgroundColor: "#f2f2f2",
     padding: themes.Spacing.medium,
     borderRadius: 5,
   },
   titleButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
   },
   titleView: {
-    flexDirection: 'row',
-    width: '100%',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    width: "100%",
+    justifyContent: "space-between",
   },
   titleText: {
     marginLeft: themes.Spacing.medium,
     marginVertical: themes.Spacing.small,
   },
   detailText: {
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginVertical: themes.Spacing.small,
   },
 });

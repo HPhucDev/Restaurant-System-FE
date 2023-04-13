@@ -1,20 +1,20 @@
 const convertPosition = (roles) => {
-  let role = '';
+  let role = "";
   switch (roles) {
-    case 'DESK_STAFF':
-      role = 'Nhân viên phục vụ bàn';
+    case "DESK_STAFF":
+      role = "Nhân viên phục vụ bàn";
       break;
-    case 'KITCHEN_STAFF':
-      role = 'Nhân viên bếp';
+    case "KITCHEN_STAFF":
+      role = "Nhân viên bếp";
       break;
-    case 'CASHIER_STAFF':
-      role = 'Nhân viên bếp';
+    case "CASHIER_STAFF":
+      role = "Nhân viên thu ngân";
       break;
-    case 'MANAGER':
-      role = 'Quản lý';
+    case "MANAGER":
+      role = "Quản lý";
       break;
     default:
-      role = 'Nhân viên phục vụ bàn';
+      role = "Nhân viên phục vụ bàn";
       break;
   }
   return role;

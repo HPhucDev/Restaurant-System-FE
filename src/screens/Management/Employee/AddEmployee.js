@@ -1,5 +1,5 @@
-import React from 'react';
-import {useState, useEffect} from 'react';
+import React from "react";
+import { useState, useEffect } from "react";
 import {
   Image,
   SafeAreaView,
@@ -10,30 +10,31 @@ import {
   Switch,
   Alert,
   ScrollView,
-} from 'react-native';
-import SpinnerCustom from '../../../components/Spinner';
-import StatusBarCustom from '../../../components/StatusBarCustom';
-import {TitleBarSave} from '../../../components/TitleBar';
-import themes from '../../../themes';
-import ImageView from 'react-native-image-viewing';
-import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-import DateTimePicker from '@react-native-community/datetimepicker';
-import {getFormattedDate, toDate} from '../../../utils/dateTime';
-import {TextInput, RadioButton} from 'react-native-paper';
-import ModalSelectRole from '../../../components/ModalSelectRole';
-import ImagePicker from 'react-native-image-crop-picker';
-import uuid from 'react-native-uuid';
-import {createUser, updateUser} from '../../../api/UserApi';
-import convertPosition from '../../../utils/convertPositions';
+  Platform,
+} from "react-native";
+import SpinnerCustom from "../../../components/Spinner";
+import StatusBarCustom from "../../../components/StatusBarCustom";
+import { TitleBarSave } from "../../../components/TitleBar";
+import themes from "../../../themes";
+import ImageView from "react-native-image-viewing";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import DateTimePicker from "@react-native-community/datetimepicker";
+import { getFormattedDate, toDate } from "../../../utils/dateTime";
+import { TextInput, RadioButton } from "react-native-paper";
+import ModalSelectRole from "../../../components/ModalSelectRole";
+import ImagePicker from "react-native-image-crop-picker";
+import uuid from "react-native-uuid";
+import { createUser, updateUser } from "../../../api/UserApi";
+import convertPosition from "../../../utils/convertPositions";
 
 const AddEmployee = (props) => {
   const option = props.route.params.option;
   const userParams = props.route.params.user;
 
   const regexEmail = new RegExp(
-    '^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$',
+    "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$"
   );
-  const regexPhoneNumber = new RegExp('(84|0[3|5|7|8|9])+([0-9]{8})\\b');
+  const regexPhoneNumber = new RegExp("(84|0[3|5|7|8|9])+([0-9]{8})\\b");
 
   const [loading, setLoading] = useState(false);
   const [visible, setIsVisible] = useState(false);
@@ -42,22 +43,22 @@ const AddEmployee = (props) => {
   const [showDatePicker, setShowDatePicker] = useState(false);
 
   const [user, setUser] = useState({
-    email: '',
-    fullName: '',
+    email: "",
+    fullName: "",
     birthDay: getFormattedDate(new Date()),
-    gender: '',
+    gender: "",
     idRestaurant: 1,
-    password: '',
-    phone: '',
-    role: '',
-    pathAvatar: '',
-    status: '',
+    password: "",
+    phone: "",
+    role: "",
+    pathAvatar: "",
+    status: "",
   });
 
   const [statusEnable, setStatusEnable] = useState(false);
 
   useEffect(() => {
-    if (option === 'EDIT') {
+    if (option === "EDIT") {
       setUser(userParams);
     }
   }, []);
@@ -65,7 +66,7 @@ const AddEmployee = (props) => {
   const checkRadio = () => {
     setUser({
       ...user,
-      gender: user.gender === 'FEMALE' ? 'MALE' : 'FEMALE',
+      gender: user.gender === "FEMALE" ? "MALE" : "FEMALE",
     });
   };
 
@@ -80,26 +81,26 @@ const AddEmployee = (props) => {
   };
 
   const validInput = () => {
-    if (user.pathAvatar === '') {
-      Alert.alert('Thông báo', 'Vui lòng chọn ảnh');
+    if (user.pathAvatar === "") {
+      Alert.alert("Thông báo", "Vui lòng chọn ảnh");
       return;
-    } else if (user.fullName === '') {
-      Alert.alert('Thông báo', 'Vui lòng nhập họ và tên');
+    } else if (user.fullName === "") {
+      Alert.alert("Thông báo", "Vui lòng nhập họ và tên");
       return;
     } else if (!regexEmail.test(user.email)) {
-      Alert.alert('Thông báo', 'Sai định dạng email');
+      Alert.alert("Thông báo", "Sai định dạng email");
       return;
-    } else if (user.gender === '') {
-      Alert.alert('Thông báo', 'Vui lòng chọn giới tính');
+    } else if (user.gender === "") {
+      Alert.alert("Thông báo", "Vui lòng chọn giới tính");
       return;
     } else if (!regexPhoneNumber.test(user.phone)) {
-      Alert.alert('Thông báo', 'Sai định dạng số điện thoại');
+      Alert.alert("Thông báo", "Sai định dạng số điện thoại");
       return;
     } else if (user.password.length < 6) {
-      Alert.alert('Thông báo', 'Mật khẩu phải lớn hơn 6 kí tự');
+      Alert.alert("Thông báo", "Mật khẩu phải lớn hơn 6 kí tự");
       return;
-    } else if (user.role === '') {
-      Alert.alert('Thông báo', 'Vui lòng chọn chức vụ');
+    } else if (user.role === "") {
+      Alert.alert("Thông báo", "Vui lòng chọn chức vụ");
       return;
     }
     return true;
@@ -109,22 +110,22 @@ const AddEmployee = (props) => {
     if (role.desk) {
       setUser({
         ...user,
-        role: 'DESK_STAFF',
+        role: "DESK_STAFF",
       });
     } else if (role.cashier) {
       setUser({
         ...user,
-        role: 'CASHIER_STAFF',
+        role: "CASHIER_STAFF",
       });
     } else if (role.kitchen) {
       setUser({
         ...user,
-        role: 'KITCHEN_STAFF',
+        role: "KITCHEN_STAFF",
       });
     } else if (role.management) {
       setUser({
         ...user,
-        role: 'MANAGER',
+        role: "MANAGER",
       });
     }
     setIsVisibleModalRole(false);
@@ -167,26 +168,26 @@ const AddEmployee = (props) => {
   const createUserEmployee = async () => {
     if (validInput()) {
       const formData = new FormData();
-      formData.append('userDTO', JSON.stringify(user));
-      formData.append('avatar', {
+      formData.append("userDTO", JSON.stringify(user));
+      formData.append("avatar", {
         uri: user.pathAvatar,
-        type: 'image/jpeg',
-        name: uuid.v4() + '.jpg',
+        type: "image/jpeg",
+        name: uuid.v4() + ".jpg",
       });
       setLoading(true);
-      if (option === 'EDIT') {
+      if (option === "EDIT") {
         await updateUser({
           formData: formData,
           id: user.id,
         })
           .then((response) => {
             setLoading(false);
-            Alert.alert('Thông báo', 'Cập nhật thông tin thành công.');
+            Alert.alert("Thông báo", "Cập nhật thông tin thành công.");
           })
           .catch((error) => {
             setLoading(false);
             console.log(error);
-            Alert.alert('Thông báo', 'Cập nhật thông tin thất bại.');
+            Alert.alert("Thông báo", "Cập nhật thông tin thất bại.");
           });
       } else {
         await createUser({
@@ -195,23 +196,23 @@ const AddEmployee = (props) => {
           .then((response) => {
             setLoading(false);
             setUser({
-              email: '',
-              fullName: '',
+              email: "",
+              fullName: "",
               birthDay: getFormattedDate(new Date()),
-              gender: '',
+              gender: "",
               idRestaurant: 1,
-              password: '',
-              phone: '',
-              role: '',
-              pathAvatar: '',
-              status: '',
-            })
-            Alert.alert('Thông báo', 'Thêm thành công nhân viên!');
+              password: "",
+              phone: "",
+              role: "",
+              pathAvatar: "",
+              status: "",
+            });
+            Alert.alert("Thông báo", "Thêm thành công nhân viên!");
           })
           .catch((error) => {
             console.log(error);
             setLoading(false);
-            Alert.alert('Thông báo', 'Thêm thất bại!');
+            Alert.alert("Thông báo", "Thêm thất bại!");
           });
       }
     }
@@ -227,7 +228,7 @@ const AddEmployee = (props) => {
       <SpinnerCustom isVisible={loading} />
       <StatusBarCustom />
       <TitleBarSave
-        name={option === 'EDIT' ? 'Chỉnh sửa thông tin' : 'Thêm nhân viên'}
+        name={option === "EDIT" ? "Chỉnh sửa thông tin" : "Thêm nhân viên"}
         eventButton={props.navigation.goBack}
         saveEvent={() => createUserEmployee()}
       />
@@ -250,24 +251,25 @@ const AddEmployee = (props) => {
                   ? {
                       uri: user.pathAvatar,
                     }
-                  : require('../../../assets/images/food-empty.jpg')
+                  : require("../../../assets/images/food-empty.jpg")
               }
               style={styles.imageStyle}
             />
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => {
-              Alert.alert('Thông báo', 'Tải lên hình ảnh của bạn bằng', [
+              Alert.alert("Thông báo", "Tải lên hình ảnh của bạn bằng", [
                 {
-                  text: 'Camera',
+                  text: "Camera",
                   onPress: () => openCamera(),
                 },
                 {
-                  text: 'Thư viện',
+                  text: "Thư viện",
                   onPress: () => openLib(),
                 },
               ]);
-            }}>
+            }}
+          >
             <Text style={styles.textImageButton}>Thay ảnh đại diện</Text>
           </TouchableOpacity>
         </View>
@@ -276,7 +278,7 @@ const AddEmployee = (props) => {
             label="Họ và tên"
             value={user.fullName}
             style={styles.inputStyle}
-            theme={{colors: {primary: themes.Colors.primary}}}
+            theme={{ colors: { primary: themes.Colors.primary } }}
             onChangeText={(value) =>
               setUser({
                 ...user,
@@ -288,7 +290,7 @@ const AddEmployee = (props) => {
             label="Email"
             value={user.email}
             style={styles.inputStyle}
-            theme={{colors: {primary: themes.Colors.primary}}}
+            theme={{ colors: { primary: themes.Colors.primary } }}
             onChangeText={(value) =>
               setUser({
                 ...user,
@@ -303,9 +305,9 @@ const AddEmployee = (props) => {
               mode="date"
               is24Hour={true}
               display={
-                Platform.OS === 'ios' && Platform.Version >= 14.4
-                  ? 'inline'
-                  : 'default'
+                Platform.OS === "ios" && Platform.Version >= 14.4
+                  ? "inline"
+                  : "default"
               }
               onChange={onChangeCalendar}
               dateFormat="day month year"
@@ -313,17 +315,19 @@ const AddEmployee = (props) => {
           )}
           <TouchableOpacity
             style={styles.specialInputView}
-            onPress={() => setShowDatePicker(true)}>
+            onPress={() => setShowDatePicker(true)}
+          >
             <Text
               style={[
                 {
                   color: themes.Colors.dark_gray,
                   marginHorizontal: themes.Spacing.medium,
                 },
-              ]}>
+              ]}
+            >
               Ngày sinh
             </Text>
-            <Text style={{margin: themes.Spacing.medium}}>
+            <Text style={{ margin: themes.Spacing.medium }}>
               {getFormattedDate(dateCalender)}
             </Text>
           </TouchableOpacity>
@@ -333,20 +337,21 @@ const AddEmployee = (props) => {
               style={{
                 marginLeft: themes.Spacing.medium,
                 color: themes.Colors.light_gray,
-              }}>
+              }}
+            >
               Giới tính
             </Text>
             <View style={styles.flexView}>
               <RadioButton
                 value="Male"
                 onPress={checkRadio}
-                status={user.gender === 'MALE' ? 'checked' : 'unchecked'}
+                status={user.gender === "MALE" ? "checked" : "unchecked"}
               />
               <Text style={styles.radioStyle}>Nam</Text>
               <RadioButton
                 value="Female"
                 onPress={checkRadio}
-                status={user.gender === 'FEMALE' ? 'checked' : 'unchecked'}
+                status={user.gender === "FEMALE" ? "checked" : "unchecked"}
               />
               <Text style={styles.radioStyle}>Nữ</Text>
             </View>
@@ -354,7 +359,7 @@ const AddEmployee = (props) => {
           <TextInput
             label="Số điện thoại"
             style={styles.inputStyle}
-            theme={{colors: {primary: themes.Colors.primary}}}
+            theme={{ colors: { primary: themes.Colors.primary } }}
             keyboardType="phone-pad"
             value={user.phone}
             onChangeText={(value) => {
@@ -365,12 +370,12 @@ const AddEmployee = (props) => {
               });
             }}
           />
-          {option !== 'EDIT' ? (
+          {option !== "EDIT" ? (
             <TextInput
               label="Mật khẩu"
               style={styles.inputStyle}
               value={user.password}
-              theme={{colors: {primary: themes.Colors.primary}}}
+              theme={{ colors: { primary: themes.Colors.primary } }}
               onChangeText={(value) =>
                 setUser({
                   ...user,
@@ -383,18 +388,20 @@ const AddEmployee = (props) => {
             style={styles.specialInputView}
             onPress={() => {
               setIsVisibleModalRole(!visibleModalRole);
-            }}>
+            }}
+          >
             <Text
               style={[
                 {
                   color: themes.Colors.dark_gray,
                   marginHorizontal: themes.Spacing.medium,
                 },
-              ]}>
+              ]}
+            >
               Chức vụ
             </Text>
-            <Text style={{margin: themes.Spacing.medium}}>
-              {user.role ? convertPosition(user.role) : 'Chức vụ'}
+            <Text style={{ margin: themes.Spacing.medium }}>
+              {user.role ? convertPosition(user.role) : "Chức vụ"}
             </Text>
           </TouchableOpacity>
           <View style={styles.line} />
@@ -406,18 +413,23 @@ const AddEmployee = (props) => {
                     color: themes.Colors.dark_gray,
                     marginHorizontal: themes.Spacing.medium,
                   },
-                ]}>
+                ]}
+              >
                 Trạng thái
               </Text>
               <View
-                style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-                <Text style={{margin: themes.Spacing.medium}}>Kích hoạt</Text>
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                }}
+              >
+                <Text style={{ margin: themes.Spacing.medium }}>Kích hoạt</Text>
                 <Switch
-                  value={user.status === 'ACTIVE' ? true : false}
+                  value={user.status === "ACTIVE" ? true : false}
                   onValueChange={() => {
                     setUser({
                       ...user,
-                      status: !statusEnable ? 'ACTIVE' : 'IN_ACTIVE',
+                      status: !statusEnable ? "ACTIVE" : "IN_ACTIVE",
                     });
                     setStatusEnable(!statusEnable);
                   }}
@@ -436,7 +448,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   imageView: {
-    alignItems: 'center',
+    alignItems: "center",
     marginVertical: themes.Spacing.large,
   },
   imageStyle: {
@@ -446,7 +458,7 @@ const styles = StyleSheet.create({
     borderRadius: 45,
   },
   textImageButton: {
-    fontFamily: 'Montserrat-Medium',
+    fontFamily: "Montserrat-Medium",
     fontSize: themes.Text.titleBar,
     color: themes.Colors.primary,
   },
@@ -461,17 +473,17 @@ const styles = StyleSheet.create({
     marginBottom: themes.Spacing.small,
   },
   flexView: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
   },
-  buttonStyle: {width: '85%', alignSelf: 'center'},
+  buttonStyle: { width: "85%", alignSelf: "center" },
   linearView: {
-    alignItems: 'center',
+    alignItems: "center",
     padding: 13,
     borderRadius: 5,
   },
   buttonLogout: {
-    alignItems: 'center',
+    alignItems: "center",
     padding: themes.Spacing.large,
     borderRadius: 5,
     borderWidth: 0.5,
@@ -485,7 +497,7 @@ const styles = StyleSheet.create({
     color: themes.Colors.danger,
     fontSize: themes.Text.titleText,
   },
-  buttonText: {color: themes.Colors.white, fontSize: themes.Text.titleText},
+  buttonText: { color: themes.Colors.white, fontSize: themes.Text.titleText },
   line: {
     borderBottomWidth: 0.8,
     borderBottomColor: themes.Colors.light_gray,
